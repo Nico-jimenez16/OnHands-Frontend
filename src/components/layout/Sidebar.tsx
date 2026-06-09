@@ -5,6 +5,7 @@ import styled, { css } from 'styled-components'
 import * as LucideIcons from 'lucide-react'
 import type { LucideProps } from 'lucide-react'
 import { theme } from '@/styles/theme'
+import { Text } from '@/components/ui'
 import { useServiceCategories } from '@/hooks/useServiceCategories'
 
 const Nav = styled.nav`
@@ -21,12 +22,9 @@ const Section = styled.div`
   padding: 0 ${theme.spacing.sm};
 `
 
-const SectionLabel = styled.p`
-  font-size: ${theme.fontSize.xs};
-  font-weight: 600;
-  color: ${theme.colors.text.tertiary};
-  text-transform: uppercase;
-  letter-spacing: 0.6px;
+// Contenedor que conserva el espaciado del label de sección; el texto en sí
+// usa <Text variant="eyebrow"> de la librería.
+const SectionLabel = styled.div`
   padding: ${theme.spacing.sm} ${theme.spacing.sm};
   margin-top: ${theme.spacing.md};
 `
@@ -103,7 +101,11 @@ export function Sidebar() {
         ))}
       </Section>
 
-      <SectionLabel>Servicios</SectionLabel>
+      <SectionLabel>
+        <Text variant="eyebrow" color="tertiary" as="span">
+          Servicios
+        </Text>
+      </SectionLabel>
       <Section>
         {categories.map((cat) => (
           <Item

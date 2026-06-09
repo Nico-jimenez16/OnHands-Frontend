@@ -2,6 +2,7 @@
 
 import styled from 'styled-components'
 import { theme } from '@/styles/theme'
+import { Badge, Avatar } from '@/components/ui'
 
 const Bar = styled.header`
   grid-column: 1 / -1;
@@ -28,6 +29,7 @@ const LogoMark = styled.div`
   flex-shrink: 0;
 `
 
+// Wordmark de marca: tamaño/letter-spacing propios fuera de las variantes de <Text>.
 const Logo = styled.span`
   font-size: ${theme.fontSize.xl};
   font-weight: 500;
@@ -40,40 +42,6 @@ const Right = styled.div`
   display: flex;
   align-items: center;
   gap: ${theme.spacing.sm};
-`
-
-const RequestBadge = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${theme.spacing.xs};
-  padding: 3px 10px;
-  background-color: ${theme.colors.accent.purpleLight};
-  border: 1px solid #3a3070;
-  border-radius: ${theme.radius.full};
-  font-size: ${theme.fontSize.sm};
-  color: ${theme.colors.accent.purpleMid};
-  font-weight: 500;
-`
-
-const Dot = styled.span`
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: ${theme.colors.accent.purple};
-`
-
-const Avatar = styled.div`
-  width: 28px;
-  height: 28px;
-  border-radius: ${theme.radius.full};
-  background-color: #2a2048;
-  color: ${theme.colors.accent.purpleMid};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: ${theme.fontSize.sm};
-  font-weight: 500;
-  text-transform: uppercase;
 `
 
 interface TopBarProps {
@@ -94,17 +62,10 @@ export function TopBar({ activeRequestId, userName = 'U' }: TopBarProps) {
       <LogoMark>OH</LogoMark>
       <Logo>OnHands</Logo>
       <Right>
-        <RequestBadge>
-          {activeRequestId ? (
-            <>
-              <Dot />
-              Solicitud activa · {activeRequestId}
-            </>
-          ) : (
-            'sin solicitudes activas'
-          )}
-        </RequestBadge>
-        <Avatar>{initials || 'U'}</Avatar>
+        <Badge variant="accent" rounded dot={!!activeRequestId}>
+          {activeRequestId ? `Solicitud activa · ${activeRequestId}` : 'sin solicitudes activas'}
+        </Badge>
+        <Avatar initials={initials || 'U'} size="sm" color="purple" />
       </Right>
     </Bar>
   )

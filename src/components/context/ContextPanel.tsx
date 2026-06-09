@@ -3,6 +3,7 @@
 import styled from 'styled-components'
 import { LayoutGrid, Calendar, FileText, Headset } from 'lucide-react'
 import { theme } from '@/styles/theme'
+import { Icon, Text } from '@/components/ui'
 import { useChatStore } from '@/store/chatStore'
 import { useMatchStream } from '@/hooks/useMatchStream'
 import { RequestSummaryCard } from './RequestSummaryCard'
@@ -21,15 +22,6 @@ const PanelHeader = styled.div`
   padding: ${theme.spacing.md} ${theme.spacing.lg};
   border-bottom: 1px solid ${theme.colors.border.light};
   flex-shrink: 0;
-`
-
-const PanelTitle = styled.h3`
-  margin: 0;
-  font-size: ${theme.fontSize.xs};
-  font-weight: 600;
-  color: ${theme.colors.text.tertiary};
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
 `
 
 const TopSection = styled.div`
@@ -67,13 +59,6 @@ const EmptyIcon = styled.div`
   margin-bottom: ${theme.spacing.xs};
 `
 
-const EmptyText = styled.div`
-  font-size: ${theme.fontSize.md};
-  color: ${theme.colors.text.tertiary};
-  text-align: center;
-  line-height: 1.6;
-`
-
 const QuickActions = styled.div`
   padding: ${theme.spacing.md} ${theme.spacing.lg};
   border-top: 1px solid ${theme.colors.border.light};
@@ -84,10 +69,6 @@ const QuickActions = styled.div`
 `
 
 const QaTitle = styled.div`
-  font-size: ${theme.fontSize.xs};
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  color: ${theme.colors.text.tertiary};
   margin-bottom: ${theme.spacing.xs};
 `
 
@@ -122,17 +103,19 @@ export function ContextPanel() {
   return (
     <Panel>
       <PanelHeader>
-        <PanelTitle>Panel de solicitud</PanelTitle>
+        <Text variant="eyebrow" color="tertiary" as="h3">
+          Panel de solicitud
+        </Text>
       </PanelHeader>
 
       {!activeRequest ? (
         <EmptyState>
           <EmptyIcon>
-            <LayoutGrid size={16} />
+            <Icon icon={<LayoutGrid size={16} />} />
           </EmptyIcon>
-          <EmptyText>
+          <Text variant="caption" color="tertiary" align="center" as="div">
             Tu solicitud y los profesionales disponibles aparecerán aquí
-          </EmptyText>
+          </Text>
         </EmptyState>
       ) : (
         <>
@@ -148,17 +131,21 @@ export function ContextPanel() {
       )}
 
       <QuickActions>
-        <QaTitle>Acciones rápidas</QaTitle>
+        <QaTitle>
+          <Text variant="eyebrow" color="tertiary" as="span">
+            Acciones rápidas
+          </Text>
+        </QaTitle>
         <QaButton>
-          <Calendar size={14} />
+          <Icon icon={<Calendar size={14} />} />
           Ver mis turnos
         </QaButton>
         <QaButton>
-          <FileText size={14} />
+          <Icon icon={<FileText size={14} />} />
           Historial de servicios
         </QaButton>
         <QaButton>
-          <Headset size={14} />
+          <Icon icon={<Headset size={14} />} />
           Contactar soporte
         </QaButton>
       </QuickActions>

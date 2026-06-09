@@ -2,6 +2,7 @@
 
 import styled, { keyframes } from 'styled-components'
 import { theme } from '@/styles/theme'
+import { Avatar } from '@/components/ui'
 
 const bounce = keyframes`
   0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
@@ -13,20 +14,6 @@ const Row = styled.div`
   align-items: flex-end;
   gap: ${theme.spacing.sm};
   padding: ${theme.spacing.xs} ${theme.spacing.xl};
-`
-
-const Avatar = styled.div`
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background-color: ${theme.colors.accent.purpleLight};
-  color: ${theme.colors.accent.purple};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: ${theme.fontSize.xs};
-  font-weight: 700;
-  flex-shrink: 0;
 `
 
 const Bubble = styled.div`
@@ -50,7 +37,7 @@ const Dot = styled.span<{ $delay: number }>`
 export function TypingIndicator() {
   return (
     <Row>
-      <Avatar>S</Avatar>
+      <Avatar initials="S" size="sm" color="purple" />
       <Bubble>
         <Dot $delay={0} />
         <Dot $delay={200} />

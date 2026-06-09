@@ -3,6 +3,8 @@
 import styled, { keyframes, css } from 'styled-components'
 import { theme } from '@/styles/theme'
 import type { Provider } from '@/types'
+import { Avatar, Text } from '@/components/ui'
+import type { AvatarColor } from '@/components/ui'
 
 const pulse = keyframes`
   0%, 100% { opacity: 1; }
@@ -11,19 +13,8 @@ const pulse = keyframes`
 
 type Rank = 1 | 2 | 3
 
-const rankBg = (rank: Rank) =>
-  rank === 1
-    ? theme.colors.accent.purpleLight
-    : rank === 2
-    ? theme.colors.status.successBg
-    : theme.colors.provider.rank3Bg
-
-const rankText = (rank: Rank) =>
-  rank === 1
-    ? theme.colors.accent.purple
-    : rank === 2
-    ? theme.colors.status.successText
-    : theme.colors.provider.rank3Text
+const rankColor = (rank: Rank): AvatarColor =>
+  rank === 1 ? 'purple' : rank === 2 ? 'green' : 'orange'
 
 const rankBar = (rank: Rank) =>
   rank === 1
@@ -59,25 +50,12 @@ const TopRow = styled.div`
   gap: ${theme.spacing.sm};
 `
 
-const Avatar = styled.div<{ $rank: Rank }>`
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background-color: ${({ $rank }) => rankBg($rank)};
-  color: ${({ $rank }) => rankText($rank)};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: ${theme.fontSize.sm};
-  font-weight: 700;
-  flex-shrink: 0;
-`
-
 const Info = styled.div`
   flex: 1;
   min-width: 0;
 `
 
+// Nombre del profesional: 13px/600 con truncado; sin variante equivalente en <Text>.
 const Name = styled.div`
   font-size: ${theme.fontSize.base};
   font-weight: 600;
@@ -85,11 +63,6 @@ const Name = styled.div`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-`
-
-const Specialty = styled.div`
-  font-size: ${theme.fontSize.sm};
-  color: ${theme.colors.text.tertiary};
 `
 
 const Metrics = styled.div`
@@ -205,10 +178,12 @@ export function ProviderCard({ provider, rank }: ProviderCardProps) {
     <Card $rank={rank}>
       {rank === 1 && <BestMatchBadge>Mejor match</BestMatchBadge>}
       <TopRow>
-        <Avatar $rank={rank}>{provider.initials}</Avatar>
+        <Avatar initials={provider.initials} size="md" color={rankColor(rank)} />
         <Info>
           <Name>{provider.name}</Name>
-          <Specialty>{provider.specialty}</Specialty>
+          <Text variant="hint" color="tertiary" as="div">
+            {provider.specialty}
+          </Text>
         </Info>
       </TopRow>
       <Metrics>

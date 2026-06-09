@@ -3,6 +3,8 @@
 import styled from 'styled-components'
 import { theme } from '@/styles/theme'
 import type { ServiceRequest } from '@/types'
+import { Badge } from '@/components/ui'
+import type { BadgeVariant } from '@/components/ui'
 
 const Card = styled.div`
   padding: ${theme.spacing.md};
@@ -22,25 +24,6 @@ const ReqId = styled.span`
   font-size: ${theme.fontSize.xs};
   font-family: ${theme.fonts.mono};
   color: ${theme.colors.text.tertiary};
-`
-
-const StatusBadge = styled.span<{ $status: string }>`
-  padding: 2px 8px;
-  border-radius: ${theme.radius.full};
-  font-size: ${theme.fontSize.xs};
-  font-weight: 500;
-  background-color: ${({ $status }) =>
-    $status === 'accepted'
-      ? theme.colors.status.successBg
-      : $status === 'sent'
-      ? theme.colors.status.infoBg
-      : theme.colors.status.warningBg};
-  color: ${({ $status }) =>
-    $status === 'accepted'
-      ? theme.colors.status.successText
-      : $status === 'sent'
-      ? theme.colors.status.infoText
-      : theme.colors.status.warningText};
 `
 
 const Category = styled.div`
@@ -80,6 +63,12 @@ const statusLabel = (status: string) => {
   return status
 }
 
+const statusVariant = (status: string): BadgeVariant => {
+  if (status === 'accepted') return 'success'
+  if (status === 'sent') return 'info'
+  return 'warning'
+}
+
 interface RequestSummaryCardProps {
   request: ServiceRequest
 }
@@ -89,7 +78,9 @@ export function RequestSummaryCard({ request }: RequestSummaryCardProps) {
     <Card>
       <CardHeader>
         <ReqId>{request.id}</ReqId>
-        <StatusBadge $status={request.status}>{statusLabel(request.status)}</StatusBadge>
+        <Badge variant={statusVariant(request.status)} size="sm" rounded>
+          {statusLabel(request.status)}
+        </Badge>
       </CardHeader>
       <Category>{request.category || 'Solicitud de servicio'}</Category>
       <Fields>

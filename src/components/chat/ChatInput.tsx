@@ -5,6 +5,7 @@ import type { KeyboardEvent, ChangeEvent } from 'react'
 import styled from 'styled-components'
 import { ArrowUp, Mic } from 'lucide-react'
 import { theme } from '@/styles/theme'
+import { Icon } from '@/components/ui'
 
 const MAX_TEXTAREA_HEIGHT = 200
 const FOCUSED_MIN_HEIGHT = 100
@@ -124,7 +125,7 @@ export function ChatInput({ onSend, isTyping }: ChatInputProps) {
     <Wrapper>
       <InputRow>
         <MicIcon>
-          <Mic size={16} />
+          <Icon icon={<Mic size={16} />} />
         </MicIcon>
         <TextArea
           ref={textareaRef}
@@ -143,7 +144,7 @@ export function ChatInput({ onSend, isTyping }: ChatInputProps) {
           disabled={!hasContent || isTyping}
           onClick={handleSend}
         >
-          <ArrowUp size={16} />
+          <Icon icon={<ArrowUp size={16} />} />
         </SendButton>
       </InputRow>
     </Wrapper>

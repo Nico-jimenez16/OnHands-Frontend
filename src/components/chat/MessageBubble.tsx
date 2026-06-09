@@ -3,6 +3,7 @@
 import styled from 'styled-components'
 import { theme } from '@/styles/theme'
 import type { Message } from '@/types'
+import { Avatar } from '@/components/ui'
 import { ServiceSummaryCard } from './ServiceSummaryCard'
 
 const Row = styled.div<{ $isUser: boolean }>`
@@ -13,13 +14,15 @@ const Row = styled.div<{ $isUser: boolean }>`
   flex-direction: ${({ $isUser }) => ($isUser ? 'row-reverse' : 'row')};
 `
 
-const Avatar = styled.div<{ $isUser: boolean }>`
+// Avatar del usuario: fondo violeta sólido + texto blanco. No corresponde a una
+// variante de <Avatar> (cuyo "purple" es violeta claro), así que se conserva
+// custom para mantener la distinción visual frente al avatar del asistente.
+const UserAvatar = styled.div`
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background-color: ${({ $isUser }) =>
-    $isUser ? theme.colors.accent.purple : theme.colors.accent.purpleLight};
-  color: ${({ $isUser }) => ($isUser ? '#ffffff' : theme.colors.accent.purple)};
+  background-color: ${theme.colors.accent.purple};
+  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -62,11 +65,14 @@ interface MessageBubbleProps {
 
 export function MessageBubble({ message, userName = 'U' }: MessageBubbleProps) {
   const isUser = message.role === 'user'
-  const avatarLabel = isUser ? getInitials(userName) : 'S'
 
   return (
     <Row $isUser={isUser}>
-      <Avatar $isUser={isUser}>{avatarLabel}</Avatar>
+      {isUser ? (
+        <UserAvatar>{getInitials(userName)}</UserAvatar>
+      ) : (
+        <Avatar initials="S" size="sm" color="purple" />
+      )}
       <BubbleWrapper $isUser={isUser}>
         <Bubble $isUser={isUser}>{message.content}</Bubble>
         {message.serviceData && (

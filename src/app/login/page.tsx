@@ -8,6 +8,13 @@ import styled from 'styled-components'
 // NOTE: Esta pantalla usa una paleta propia (navy + blanco + ámbar) que no existe
 // en src/styles/theme.ts (que es violeta/oscuro). Al ser una pantalla de marca
 // autónoma, los colores se hardcodean acá y no se modifica el theme compartido.
+//
+// TODO(ui-library): existe una librería de componentes atómicos en
+// src/components/ui (Button, Input, Text, Label, Badge, Divider, Avatar, Icon),
+// pero está atada al theme oscuro. Migrar esta pantalla requeriría agregar
+// overrides de color/paleta a esos componentes para preservar el look claro/ámbar.
+// Hasta entonces el login conserva sus styled-components propios para mantener
+// la apariencia idéntica.
 
 const Page = styled.div`
   display: grid;

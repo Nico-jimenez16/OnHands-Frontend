@@ -3,6 +3,8 @@
 import styled from 'styled-components'
 import { theme } from '@/styles/theme'
 import type { ServiceRequest } from '@/types'
+import { Badge, Text } from '@/components/ui'
+import type { BadgeVariant } from '@/components/ui'
 
 const Card = styled.div`
   margin-top: ${theme.spacing.sm};
@@ -19,25 +21,6 @@ const Header = styled.div`
   margin-bottom: ${theme.spacing.sm};
 `
 
-const CardLabel = styled.span`
-  font-size: ${theme.fontSize.xs};
-  font-weight: 600;
-  color: ${theme.colors.text.secondary};
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-`
-
-const StatusBadge = styled.span<{ $complete: boolean }>`
-  padding: 2px 8px;
-  border-radius: ${theme.radius.full};
-  font-size: ${theme.fontSize.xs};
-  font-weight: 500;
-  background-color: ${({ $complete }) =>
-    $complete ? theme.colors.status.successBg : theme.colors.status.warningBg};
-  color: ${({ $complete }) =>
-    $complete ? theme.colors.status.successText : theme.colors.status.warningText};
-`
-
 const Grid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -50,36 +33,18 @@ const Field = styled.div`
   gap: 2px;
 `
 
-const FieldLabel = styled.span`
-  font-size: ${theme.fontSize.xs};
-  color: ${theme.colors.text.tertiary};
-`
-
+// Valor de campo: 13px/500, sin variante equivalente en <Text>.
 const FieldValue = styled.span`
   font-size: ${theme.fontSize.base};
   color: ${theme.colors.text.primary};
   font-weight: 500;
 `
 
-const UrgencyBadge = styled.span<{ $urgency: string }>`
-  display: inline-block;
-  padding: 1px 8px;
-  border-radius: ${theme.radius.full};
-  font-size: ${theme.fontSize.xs};
-  font-weight: 500;
-  background-color: ${({ $urgency }) =>
-    $urgency === 'alta'
-      ? theme.colors.status.errorBg
-      : $urgency === 'media'
-      ? theme.colors.status.warningBg
-      : theme.colors.status.successBg};
-  color: ${({ $urgency }) =>
-    $urgency === 'alta'
-      ? theme.colors.status.error
-      : $urgency === 'media'
-      ? theme.colors.status.warningText
-      : theme.colors.status.successText};
-`
+function urgencyVariant(urgency: string): BadgeVariant {
+  if (urgency === 'alta') return 'error'
+  if (urgency === 'media') return 'warning'
+  return 'success'
+}
 
 interface ServiceSummaryCardProps {
   serviceData: Partial<ServiceRequest>
@@ -91,34 +56,46 @@ export function ServiceSummaryCard({ serviceData }: ServiceSummaryCardProps) {
   return (
     <Card>
       <Header>
-        <CardLabel>Resumen del servicio</CardLabel>
-        <StatusBadge $complete={isComplete}>
+        <Text variant="eyebrow" color="secondary" as="span">
+          Resumen del servicio
+        </Text>
+        <Badge variant={isComplete ? 'success' : 'warning'} size="sm" rounded>
           {isComplete ? 'datos completos' : 'buscando...'}
-        </StatusBadge>
+        </Badge>
       </Header>
       <Grid>
         {serviceData.address && (
           <Field>
-            <FieldLabel>Dirección</FieldLabel>
+            <Text variant="hint" color="tertiary" as="span">
+              Dirección
+            </Text>
             <FieldValue>{serviceData.address}</FieldValue>
           </Field>
         )}
         {serviceData.scheduledDate && (
           <Field>
-            <FieldLabel>Día</FieldLabel>
+            <Text variant="hint" color="tertiary" as="span">
+              Día
+            </Text>
             <FieldValue>{serviceData.scheduledDate}</FieldValue>
           </Field>
         )}
         {serviceData.timePreference && (
           <Field>
-            <FieldLabel>Horario</FieldLabel>
+            <Text variant="hint" color="tertiary" as="span">
+              Horario
+            </Text>
             <FieldValue>{serviceData.timePreference}</FieldValue>
           </Field>
         )}
         {serviceData.urgency && (
           <Field>
-            <FieldLabel>Urgencia</FieldLabel>
-            <UrgencyBadge $urgency={serviceData.urgency}>{serviceData.urgency}</UrgencyBadge>
+            <Text variant="hint" color="tertiary" as="span">
+              Urgencia
+            </Text>
+            <Badge variant={urgencyVariant(serviceData.urgency)} size="sm" rounded>
+              {serviceData.urgency}
+            </Badge>
           </Field>
         )}
       </Grid>
