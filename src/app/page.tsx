@@ -1,17 +1,8 @@
-import { AppShell } from '@/components/layout/AppShell'
-import { TopBar } from '@/components/layout/TopBar'
-import { Sidebar } from '@/components/layout/Sidebar'
-import { ChatPanel } from '@/components/chat/ChatPanel'
-import { ContextPanel } from '@/components/context/ContextPanel'
+import { redirect } from 'next/navigation'
 
-export default function Home() {
-  return (
-    <AppShell
-      topbar={<TopBar userName="Nicolas Jimenez" />}
-      sidebar={<Sidebar />}
-      contextPanel={<ContextPanel />}
-    >
-      <ChatPanel userName="Nicolas Jimenez" />
-    </AppShell>
-  )
+// La pantalla de login es la entrada por defecto del proyecto.
+// La app principal vive ahora en /app (ver src/app/app/page.tsx).
+// TODO: cuando exista auth real, redirigir según el estado de sesión.
+export default function RootPage() {
+  redirect('/login')
 }
