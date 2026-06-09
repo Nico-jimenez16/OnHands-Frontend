@@ -20,6 +20,7 @@ const colorMap: Record<AvatarColor, ColorPair> = {
   purple: { bg: theme.colors.accent.purpleLight, text: theme.colors.accent.purple },
   green: { bg: theme.colors.status.successBg, text: theme.colors.status.successText },
   orange: { bg: theme.colors.status.warningBg, text: theme.colors.status.warningText },
+  navy: { bg: theme.colors.avatarNavy.bg, text: theme.colors.avatarNavy.text },
   default: { bg: theme.colors.bg.tertiary, text: theme.colors.text.secondary },
 }
 

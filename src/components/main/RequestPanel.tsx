@@ -5,6 +5,7 @@ import { ClipboardList, Calendar, FileText, Headphones, ChevronRight } from 'luc
 import { useChatStore } from '@/store/chatStore'
 import { useMatchStream } from '@/hooks/useMatchStream'
 import type { Provider, ServiceRequest } from '@/types'
+import { Badge } from '@/components/ui'
 import { light, tint } from './palette'
 
 const Panel = styled.aside`
@@ -251,14 +252,7 @@ const ProviderCardBox = styled.div<{ $best: boolean }>`
   padding: 12px;
 `
 
-const BestBadge = styled.div`
-  display: inline-block;
-  padding: 2px 8px;
-  background: ${light.accent};
-  color: #ffffff;
-  font-size: 10px;
-  font-weight: 600;
-  border-radius: 6px;
+const BestBadge = styled(Badge)`
   margin-bottom: 8px;
 `
 
@@ -367,7 +361,11 @@ function ProviderItem({ provider }: { provider: Provider }) {
   const best = provider.rank === 1
   return (
     <ProviderCardBox $best={best}>
-      {best && <BestBadge>Mejor match</BestBadge>}
+      {best && (
+        <BestBadge variant="accentSolid" size="sm">
+          Mejor match
+        </BestBadge>
+      )}
       <ProviderTop>
         <ProviderAvatar>{provider.initials}</ProviderAvatar>
         <ProviderInfo>

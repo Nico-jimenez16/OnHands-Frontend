@@ -7,6 +7,7 @@ export type BadgeVariant =
   | 'error'
   | 'info'
   | 'accent'
+  | 'accentSolid'
 
 export type BadgeSize = 'sm' | 'md'
 
@@ -16,4 +17,5 @@ export interface BadgeProps {
   size?: BadgeSize
   dot?: boolean
   rounded?: boolean
+  className?: string
 }

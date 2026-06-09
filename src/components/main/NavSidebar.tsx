@@ -19,6 +19,7 @@ import {
   Leaf,
   Settings,
 } from 'lucide-react'
+import { Badge } from '@/components/ui'
 import { light } from './palette'
 
 type IconType = ComponentType<LucideProps>
@@ -106,14 +107,8 @@ const Item = styled.button<{ $active?: boolean }>`
   ${({ $active }) => $active && activeStyles}
 `
 
-const ItemBadge = styled.span`
+const ItemBadge = styled(Badge)`
   margin-left: auto;
-  font-size: 10px;
-  background: ${light.accentBg};
-  color: ${light.accent};
-  padding: 2px 7px;
-  border-radius: 10px;
-  font-weight: 600;
 `
 
 const Footer = styled.div`
@@ -129,7 +124,11 @@ export function NavSidebar() {
     <Item key={id} $active={activeId === id} onClick={() => setActiveId(id)}>
       <Icon size={15} />
       {label}
-      {badge && <ItemBadge>{badge}</ItemBadge>}
+      {badge && (
+        <ItemBadge variant="accent" size="sm" rounded>
+          {badge}
+        </ItemBadge>
+      )}
     </Item>
   )
 

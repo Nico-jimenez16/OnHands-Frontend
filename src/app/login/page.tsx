@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Bot, MapPin, ShieldCheck, Mail, Lock, Eye, EyeOff, ArrowRight } from 'lucide-react'
 import styled from 'styled-components'
+import { Input, Button, Divider, Badge } from '@/components/ui'
 
 // NOTE: Esta pantalla usa una paleta propia (navy + blanco + ámbar) que no existe
 // en src/styles/theme.ts (que es violeta/oscuro). Al ser una pantalla de marca
@@ -210,27 +211,8 @@ const FormWrap = styled.div`
   max-width: 320px;
 `
 
-const Badge = styled.div`
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: #f0f0f8;
-  border: 1px solid #e0e0ee;
-  border-radius: 20px;
-  padding: 4px 12px;
+const TopBadge = styled(Badge)`
   margin-bottom: 20px;
-`
-
-const BadgeDot = styled.div`
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #22c55e;
-`
-
-const BadgeText = styled.span`
-  font-size: 11px;
-  color: #8888a0;
 `
 
 const FormEyebrow = styled.div`
@@ -259,46 +241,6 @@ const FormSub = styled.div`
 
 const Field = styled.div`
   margin-bottom: 14px;
-`
-
-const FieldLabel = styled.label`
-  display: block;
-  font-size: 11.5px;
-  color: #606078;
-  font-weight: 500;
-  letter-spacing: 0.2px;
-  margin-bottom: 6px;
-`
-
-const FieldInput = styled.div`
-  background: #f8f8fc;
-  border: 1px solid #e4e4ee;
-  border-radius: 8px;
-  padding: 10px 14px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: border-color 0.15s;
-
-  &:focus-within {
-    border-color: #ef9f27;
-    background: #ffffff;
-  }
-`
-
-const Input = styled.input`
-  flex: 1;
-  width: 100%;
-  background: transparent;
-  border: none;
-  outline: none;
-  font-family: inherit;
-  font-size: 13px;
-  color: #1a1a2e;
-
-  &::placeholder {
-    color: #b8b8cc;
-  }
 `
 
 const ToggleButton = styled.button`
@@ -347,61 +289,11 @@ const Forgot = styled.span`
   cursor: pointer;
 `
 
-const PrimaryButton = styled.button`
-  width: 100%;
-  padding: 11px;
-  background: #1a1a2e;
-  border: none;
-  border-radius: 9px;
-  font-size: 13px;
-  font-weight: 500;
-  color: #ffffff;
-  cursor: pointer;
-  font-family: inherit;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  margin-bottom: 18px;
-  transition: background-color 0.15s;
-
-  &:hover {
-    background: #252540;
-  }
-`
-
-const Divider = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 12px;
+const SubmitButton = styled(Button)`
   margin-bottom: 18px;
 `
 
-const DivLine = styled.div`
-  flex: 1;
-  height: 1px;
-  background: #ebebf4;
-`
-
-const DivText = styled.span`
-  font-size: 11px;
-  color: #b0b0c8;
-`
-
-const GoogleButton = styled.button`
-  width: 100%;
-  padding: 10px;
-  background: #f8f8fc;
-  border: 1px solid #e4e4ee;
-  border-radius: 9px;
-  font-size: 13px;
-  color: #606078;
-  cursor: pointer;
-  font-family: inherit;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
+const GoogleBtn = styled(Button)`
   margin-bottom: 18px;
 `
 
@@ -505,10 +397,9 @@ export default function LoginPage() {
 
       <Right>
         <FormWrap>
-          <Badge>
-            <BadgeDot />
-            <BadgeText>+2.400 profesionales disponibles</BadgeText>
-          </Badge>
+          <TopBadge variant="default" dot rounded>
+            +2.400 profesionales disponibles
+          </TopBadge>
 
           <FormEyebrow>Bienvenido de nuevo</FormEyebrow>
           <FormTitle>Ingresá a tu cuenta</FormTitle>
@@ -517,40 +408,36 @@ export default function LoginPage() {
           </FormSub>
 
           <Field>
-            <FieldLabel>Correo electrónico</FieldLabel>
-            <FieldInput>
-              <Mail size={14} color="#b0b0c8" />
-              <Input
-                type="email"
-                placeholder="tu@email.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </FieldInput>
+            <Input
+              label="Correo electrónico"
+              type="email"
+              placeholder="tu@email.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              leftIcon={<Mail size={14} />}
+              fullWidth
+            />
           </Field>
 
           <Field>
-            <FieldLabel>Contraseña</FieldLabel>
-            <FieldInput>
-              <Lock size={14} color="#b0b0c8" />
-              <Input
-                type={showPassword ? 'text' : 'password'}
-                placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <ToggleButton
-                type="button"
-                onClick={() => setShowPassword((prev) => !prev)}
-                aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
-              >
-                {showPassword ? (
-                  <EyeOff size={14} color="#b0b0c8" />
-                ) : (
-                  <Eye size={14} color="#b0b0c8" />
-                )}
-              </ToggleButton>
-            </FieldInput>
+            <Input
+              label="Contraseña"
+              type={showPassword ? 'text' : 'password'}
+              placeholder="••••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              leftIcon={<Lock size={14} />}
+              rightIcon={
+                <ToggleButton
+                  type="button"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+                >
+                  {showPassword ? <EyeOff size={14} /> : <Eye size={14} />}
+                </ToggleButton>
+              }
+              fullWidth
+            />
           </Field>
 
           <RowBetween>
@@ -561,21 +448,27 @@ export default function LoginPage() {
             <Forgot>¿Olvidaste tu contraseña?</Forgot>
           </RowBetween>
 
-          <PrimaryButton type="button" onClick={goHome}>
-            <ArrowRight size={14} />
+          <SubmitButton
+            variant="primary"
+            type="button"
+            fullWidth
+            leftIcon={<ArrowRight size={14} />}
+            onClick={goHome}
+          >
             Ingresar
-          </PrimaryButton>
+          </SubmitButton>
 
-          <Divider>
-            <DivLine />
-            <DivText>o continuá con</DivText>
-            <DivLine />
-          </Divider>
+          <Divider label="o continuá con" />
 
-          <GoogleButton type="button" onClick={goHome}>
-            <GoogleG>G</GoogleG>
+          <GoogleBtn
+            variant="secondary"
+            type="button"
+            fullWidth
+            leftIcon={<GoogleG>G</GoogleG>}
+            onClick={goHome}
+          >
             Continuar con Google
-          </GoogleButton>
+          </GoogleBtn>
 
           <FormFooter>
             Al ingresar aceptás los <FooterLink>Términos</FooterLink> y la{' '}

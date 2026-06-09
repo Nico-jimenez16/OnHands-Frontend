@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import styled from 'styled-components'
 import { Search, Bell } from 'lucide-react'
+import { Avatar } from '@/components/ui'
 import { light } from './palette'
 
 const Bar = styled.header`
@@ -103,20 +104,6 @@ const NotifButton = styled.button`
   }
 `
 
-const UserAvatar = styled.div`
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: ${light.avatarBg};
-  color: ${light.avatarText};
-  font-size: 11px;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-`
-
 const UserBlock = styled.div`
   display: flex;
   flex-direction: column;
@@ -160,7 +147,7 @@ export function AppHeader() {
         <NotifButton type="button" aria-label="Notificaciones">
           <Bell size={15} />
         </NotifButton>
-        <UserAvatar>NJ</UserAvatar>
+        <Avatar initials="NJ" size="sm" color="navy" />
         <UserBlock>
           <UserName>Nicolás J.</UserName>
           <UserPlan>Plan gratuito</UserPlan>

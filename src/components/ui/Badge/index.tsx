@@ -16,6 +16,7 @@ const variantColors: Record<BadgeVariant, VariantColors> = {
   error: { bg: theme.colors.status.errorBg, text: theme.colors.status.error },
   info: { bg: theme.colors.status.infoBg, text: theme.colors.status.infoText },
   accent: { bg: theme.colors.accent.purpleLight, text: theme.colors.accent.purple },
+  accentSolid: { bg: theme.colors.accent.purple, text: '#ffffff' },
 }
 
 const sizeStyles: Record<BadgeSize, ReturnType<typeof css>> = {
@@ -64,9 +65,10 @@ export function Badge({
   size = 'md',
   dot,
   rounded,
+  className,
 }: BadgeProps) {
   return (
-    <StyledBadge $variant={variant} $size={size} $rounded={rounded}>
+    <StyledBadge $variant={variant} $size={size} $rounded={rounded} className={className}>
       {dot && <Dot />}
       {children}
     </StyledBadge>
