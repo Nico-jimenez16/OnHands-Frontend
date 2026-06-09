@@ -1,17 +1,16 @@
-import { AppShell } from '@/components/layout/AppShell'
-import { TopBar } from '@/components/layout/TopBar'
-import { Sidebar } from '@/components/layout/Sidebar'
-import { ChatPanel } from '@/components/chat/ChatPanel'
-import { ContextPanel } from '@/components/context/ContextPanel'
+import { MainLayout } from '@/components/main/MainLayout'
+import { AppHeader } from '@/components/main/AppHeader'
+import { NavSidebar } from '@/components/main/NavSidebar'
+import { AssistantChat } from '@/components/main/AssistantChat'
+import { RequestPanel } from '@/components/main/RequestPanel'
 
 export default function AppHome() {
   return (
-    <AppShell
-      topbar={<TopBar userName="Nicolas Jimenez" />}
-      sidebar={<Sidebar />}
-      contextPanel={<ContextPanel />}
-    >
-      <ChatPanel userName="Nicolas Jimenez" />
-    </AppShell>
+    <MainLayout
+      header={<AppHeader />}
+      sidebar={<NavSidebar />}
+      chat={<AssistantChat />}
+      panel={<RequestPanel />}
+    />
   )
 }

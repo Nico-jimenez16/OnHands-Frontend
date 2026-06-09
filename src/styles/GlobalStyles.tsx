@@ -20,10 +20,15 @@ export const GlobalStyles = createGlobalStyle`
     overflow: hidden;
     font-family: ${theme.fonts.sans};
     font-size: ${theme.fontSize.base};
-    color: ${theme.colors.text.primary};
+    color: #0f0f1a;
     background-color: ${theme.colors.bg.primary};
+    font-weight: 400;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  strong, b {
+    font-weight: 600;
   }
 
   a {

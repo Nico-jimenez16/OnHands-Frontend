@@ -7,44 +7,47 @@ import type { TextProps, TextVariant, TextColor } from './Text.types'
 const variantStyles: Record<TextVariant, ReturnType<typeof css>> = {
   heading1: css`
     font-size: 38px;
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: -0.8px;
     line-height: 1.12;
   `,
   heading2: css`
     font-size: 28px;
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: -0.5px;
     line-height: 1.2;
   `,
   heading3: css`
     font-size: 22px;
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: -0.4px;
     line-height: 1.25;
   `,
   heading4: css`
     font-size: 18px;
-    font-weight: 500;
+    font-weight: 600;
     line-height: 1.3;
   `,
   body: css`
     font-size: 14px;
     font-weight: 400;
     line-height: 1.6;
+    color: #3a3a52;
   `,
   bodySmall: css`
     font-size: 13px;
     font-weight: 400;
     line-height: 1.55;
+    color: #3a3a52;
   `,
   caption: css`
     font-size: 12px;
     font-weight: 400;
+    color: #6b6b85;
   `,
   eyebrow: css`
     font-size: 11px;
-    font-weight: 500;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1.2px;
   `,

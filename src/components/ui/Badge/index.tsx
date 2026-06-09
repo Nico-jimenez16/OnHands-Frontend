@@ -39,7 +39,7 @@ const StyledBadge = styled.span<StyledBadgeProps>`
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1;
   background-color: ${({ $variant }) => variantColors[$variant].bg};
   color: ${({ $variant }) => variantColors[$variant].text};

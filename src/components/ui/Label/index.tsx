@@ -7,7 +7,7 @@ import type { LabelProps } from './Label.types'
 const StyledLabel = styled.label<{ $disabled?: boolean }>`
   display: block;
   font-size: 11.5px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.2px;
   color: ${theme.colors.text.secondary};
   opacity: ${({ $disabled }) => ($disabled ? 0.5 : 1)};

@@ -6,13 +6,13 @@ export const theme = {
       tertiary: '#18181f',
     },
     text: {
-      primary: '#e8e8f0',
-      secondary: '#a0a0b8',
-      tertiary: '#6a6a80',
+      primary: '#0f0f1a',
+      secondary: '#3a3a52',
+      tertiary: '#6b6b85',
     },
     border: {
-      light: '#1e1e24',
-      medium: '#2a2a35',
+      light: '#d8d8e8',
+      medium: '#b8b8d0',
     },
     accent: {
       purple: '#7c6df0',
