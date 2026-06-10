@@ -1,7 +1,6 @@
 'use client'
 
 import type { ComponentType } from 'react'
-import styled from 'styled-components'
 import type { LucideProps } from 'lucide-react'
 import {
   Droplet,
@@ -13,8 +12,10 @@ import {
   Truck,
   Leaf,
 } from 'lucide-react'
-import { light, tint } from './palette'
+import { Text } from '@/components/ui'
+import { tint } from './palette'
 import type { Tint } from './palette'
+import { Grid, Card, CatIcon } from './CategoryGrid.styles'
 
 type IconType = ComponentType<LucideProps>
 
@@ -39,55 +40,6 @@ const CATEGORIES: Category[] = [
   { label: 'Jardín', Icon: Leaf, tint: 'green', message: 'Necesito un jardinero' },
 ]
 
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 6px;
-  margin-top: 12px;
-  width: 100%;
-`
-
-const Card = styled.button`
-  background: ${light.surface};
-  border: 1px solid ${light.border};
-  border-radius: 10px;
-  padding: 10px 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
-  cursor: pointer;
-  transition: border-color 0.1s, background-color 0.1s;
-
-  &:hover {
-    border-color: ${light.accentBorder};
-    background: ${light.accentSurface};
-  }
-`
-
-const CatIcon = styled.div<{ $bg: string; $color: string }>`
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: ${({ $bg }) => $bg};
-  color: ${({ $color }) => $color};
-
-  svg {
-    color: inherit;
-  }
-`
-
-const CatLabel = styled.span`
-  font-size: 12px;
-  font-weight: 600;
-  color: #3a3a52;
-  text-align: center;
-  line-height: 1.3;
-`
-
 interface CategoryGridProps {
   onPick: (message: string) => void
   disabled?: boolean
@@ -106,7 +58,9 @@ export function CategoryGrid({ onPick, disabled }: CategoryGridProps) {
           <CatIcon $bg={tint[t].bg} $color={tint[t].color}>
             <Icon size={15} />
           </CatIcon>
-          <CatLabel>{label}</CatLabel>
+          <Text as="span" variant="caption" weight={600} color="secondary" align="center">
+            {label}
+          </Text>
         </Card>
       ))}
     </Grid>

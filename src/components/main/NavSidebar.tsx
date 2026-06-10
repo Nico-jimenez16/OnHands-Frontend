@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import type { ComponentType } from 'react'
-import styled, { css } from 'styled-components'
 import type { LucideProps } from 'lucide-react'
 import {
   MessageCircle,
@@ -19,8 +18,7 @@ import {
   Leaf,
   Settings,
 } from 'lucide-react'
-import { Badge } from '@/components/ui'
-import { light } from './palette'
+import { Nav, SectionLabel, Item, ItemBadge, Footer } from './NavSidebar.styles'
 
 type IconType = ComponentType<LucideProps>
 
@@ -51,72 +49,6 @@ const SERVICE_ITEMS: NavItem[] = [
   { id: 'garden', Icon: Leaf, label: 'Jardín' },
 ]
 
-const Nav = styled.nav`
-  background: ${light.surface};
-  border-right: 1px solid ${light.border};
-  display: flex;
-  flex-direction: column;
-  padding: 14px 10px;
-  gap: 2px;
-  overflow: hidden;
-`
-
-const SectionLabel = styled.div`
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.9px;
-  font-weight: 600;
-  color: #9090a8;
-  padding: 10px 8px 4px;
-`
-
-const activeStyles = css`
-  background: ${light.accentBg};
-  color: #534AB7;
-  font-weight: 600;
-
-  svg {
-    color: ${light.accent};
-  }
-`
-
-const Item = styled.button<{ $active?: boolean }>`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
-  padding: 7px 10px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 12.5px;
-  color: #4a4a62;
-  font-weight: 500;
-  text-align: left;
-  transition: background-color 0.1s, color 0.1s;
-
-  svg {
-    color: ${light.textFaint};
-    flex-shrink: 0;
-  }
-
-  &:hover {
-    background: ${light.bg};
-    color: #404050;
-  }
-
-  ${({ $active }) => $active && activeStyles}
-`
-
-const ItemBadge = styled(Badge)`
-  margin-left: auto;
-`
-
-const Footer = styled.div`
-  margin-top: auto;
-  border-top: 1px solid ${light.border};
-  padding-top: 10px;
-`
-
 export function NavSidebar() {
   const [activeId, setActiveId] = useState('assistant')
 
@@ -134,10 +66,10 @@ export function NavSidebar() {
 
   return (
     <Nav>
-      <SectionLabel>Principal</SectionLabel>
+      <SectionLabel variant="eyebrow" color="soft">Principal</SectionLabel>
       {MAIN_ITEMS.map(renderItem)}
 
-      <SectionLabel>Servicios</SectionLabel>
+      <SectionLabel variant="eyebrow" color="soft">Servicios</SectionLabel>
       {SERVICE_ITEMS.map(renderItem)}
 
       <Footer>

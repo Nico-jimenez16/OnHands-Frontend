@@ -1,6 +1,12 @@
 export { Button } from './Button'
 export type { ButtonProps, ButtonVariant, ButtonSize } from './Button/Button.types'
 
+export { IconButton } from './IconButton'
+export type { IconButtonProps, IconButtonVariant, IconButtonSize } from './IconButton/IconButton.types'
+
+export { TextArea } from './TextArea'
+export type { TextAreaProps } from './TextArea/TextArea.types'
+
 export { Input } from './Input'
 export type { InputProps, InputSize } from './Input/Input.types'
 

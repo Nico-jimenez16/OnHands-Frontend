@@ -9,6 +9,8 @@ export const theme = {
       primary: '#0f0f1a',
       secondary: '#3a3a52',
       tertiary: '#6b6b85',
+      soft: '#9090a8',
+      faint: '#c0c0d0',
     },
     border: {
       light: '#d8d8e8',

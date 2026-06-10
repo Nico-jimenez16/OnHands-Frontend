@@ -1,220 +1,50 @@
 'use client'
 
-import styled, { keyframes, css } from 'styled-components'
-import { ClipboardList, Calendar, FileText, Headphones, ChevronRight } from 'lucide-react'
+import { ClipboardList, Calendar, FileText, Headphones } from 'lucide-react'
 import { useChatStore } from '@/store/chatStore'
 import { useMatchStream } from '@/hooks/useMatchStream'
 import type { Provider, ServiceRequest } from '@/types'
-import { Badge } from '@/components/ui'
-import { light, tint } from './palette'
-
-const Panel = styled.aside`
-  background: ${light.surface};
-  border-left: 1px solid ${light.border};
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-`
-
-const Header = styled.div`
-  padding: 14px 16px;
-  border-bottom: 1px solid ${light.border};
-`
-
-const Title = styled.div`
-  font-size: 13px;
-  font-weight: 600;
-  color: #0f0f1a;
-  margin-bottom: 2px;
-`
-
-const Sub = styled.div`
-  font-size: 11px;
-  font-weight: 400;
-  color: #9090a8;
-`
-
-const Body = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  padding: 14px 16px;
-  gap: 14px;
-  min-height: 0;
-`
-
-const StatRow = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-`
-
-const StatCard = styled.div`
-  background: ${light.surfaceAlt};
-  border: 1px solid ${light.border};
-  border-radius: 10px;
-  padding: 10px 12px;
-`
-
-const StatValue = styled.div`
-  font-size: 22px;
-  font-weight: 700;
-  color: #0f0f1a;
-  letter-spacing: -0.3px;
-`
-
-const StatLabel = styled.div`
-  font-size: 10px;
-  font-weight: 600;
-  color: #9090a8;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-top: 2px;
-`
-
-const Empty = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  text-align: center;
-`
-
-const EmptyIcon = styled.div`
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: ${light.bg};
-  border: 1px solid #e8e8f2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 4px;
-
-  svg {
-    color: ${light.textFaint};
-  }
-`
-
-const EmptyText = styled.div`
-  font-size: 12px;
-  font-weight: 400;
-  color: #9090a8;
-  line-height: 1.6;
-  max-width: 160px;
-`
-
-const ActivityList = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-`
-
-const ActivityLabel = styled.div`
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  font-weight: 600;
-  color: #9090a8;
-  margin-bottom: 8px;
-`
-
-const ActivityItem = styled.button`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 10px;
-  background: ${light.surfaceAlt};
-  border: 1px solid ${light.border};
-  border-radius: 8px;
-  cursor: pointer;
-  text-align: left;
-  width: 100%;
-`
-
-const ActivityIcon = styled.div<{ $bg: string; $color: string }>`
-  width: 28px;
-  height: 28px;
-  border-radius: 7px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  background: ${({ $bg }) => $bg};
-  color: ${({ $color }) => $color};
-
-  svg {
-    color: inherit;
-  }
-`
-
-const ActivityText = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-  flex: 1;
-  min-width: 0;
-`
-
-const ActivityTitle = styled.div`
-  font-size: 12px;
-  font-weight: 600;
-  color: #1a1a2e;
-`
-
-const ActivitySub = styled.div`
-  font-size: 11px;
-  font-weight: 400;
-  color: #9090a8;
-`
-
-const Arrow = styled(ChevronRight)`
-  color: ${light.textFaint};
-  flex-shrink: 0;
-`
-
-// --- Resumen de la solicitud (versión clara) ---
-
-const SummaryCard = styled.div`
-  background: ${light.surfaceAlt};
-  border: 1px solid ${light.border};
-  border-radius: 10px;
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-`
-
-const SummaryCategory = styled.div`
-  font-size: 14px;
-  font-weight: 600;
-  color: ${light.text};
-  text-transform: capitalize;
-`
-
-const SummaryField = styled.div`
-  display: flex;
-  gap: 8px;
-  font-size: 12px;
-`
-
-const SummaryFieldLabel = styled.span`
-  width: 60px;
-  flex-shrink: 0;
-  color: ${light.textSoft};
-`
-
-const SummaryFieldValue = styled.span`
-  color: ${light.textMuted};
-`
+import { Text } from '@/components/ui'
+import { tint } from './palette'
+import {
+  Panel,
+  Header,
+  Body,
+  StatRow,
+  StatCard,
+  Empty,
+  EmptyIcon,
+  EmptyText,
+  ActivityList,
+  ActivityLabel,
+  ActivityItem,
+  ActivityIcon,
+  ActivityText,
+  Arrow,
+  SummaryCard,
+  SummaryField,
+  SummaryFieldLabel,
+  SummaryFieldValue,
+  ProviderCardBox,
+  BestBadge,
+  ProviderTop,
+  ProviderAvatar,
+  ProviderInfo,
+  BarHeader,
+  BarTrack,
+  BarFill,
+  StatusPill,
+  StatusDot,
+  ProvidersWrap,
+  Notice,
+} from './RequestPanel.styles'
 
 function RequestSummary({ request }: { request: ServiceRequest }) {
   return (
     <SummaryCard>
-      <SummaryCategory>{request.category || 'Solicitud de servicio'}</SummaryCategory>
+      <Text variant="body" weight={600} color="primary" transform="capitalize">
+        {request.category || 'Solicitud de servicio'}
+      </Text>
       {request.address && (
         <SummaryField>
           <SummaryFieldLabel>Dirección</SummaryFieldLabel>
@@ -236,112 +66,6 @@ function RequestSummary({ request }: { request: ServiceRequest }) {
     </SummaryCard>
   )
 }
-
-// --- Tarjeta de profesional (versión clara) ---
-
-const pulse = keyframes`
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
-`
-
-const ProviderCardBox = styled.div<{ $best: boolean }>`
-  background: ${light.surface};
-  border: ${({ $best }) =>
-    $best ? `1.5px solid ${light.accent}` : `1px solid ${light.border}`};
-  border-radius: 10px;
-  padding: 12px;
-`
-
-const BestBadge = styled(Badge)`
-  margin-bottom: 8px;
-`
-
-const ProviderTop = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-`
-
-const ProviderAvatar = styled.div`
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: ${light.accentBg};
-  color: ${light.accent};
-  font-size: 12px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-`
-
-const ProviderInfo = styled.div`
-  min-width: 0;
-`
-
-const ProviderName = styled.div`
-  font-size: 13px;
-  font-weight: 600;
-  color: ${light.text};
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-`
-
-const ProviderSpecialty = styled.div`
-  font-size: 11px;
-  color: ${light.textSoft};
-`
-
-const BarHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin: 10px 0 4px;
-  font-size: 11px;
-  color: ${light.textMuted};
-`
-
-const BarTrack = styled.div`
-  height: 5px;
-  background: ${light.bg};
-  border-radius: 9999px;
-  overflow: hidden;
-`
-
-const BarFill = styled.div<{ $width: number }>`
-  height: 100%;
-  width: ${({ $width }) => $width}%;
-  background: ${light.accent};
-  border-radius: 9999px;
-  transition: width 0.4s ease;
-`
-
-const StatusPill = styled.div<{ $tint: { bg: string; color: string } }>`
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 10px;
-  padding: 5px 8px;
-  border-radius: 6px;
-  font-size: 11px;
-  font-weight: 500;
-  background: ${({ $tint }) => $tint.bg};
-  color: ${({ $tint }) => $tint.color};
-`
-
-const StatusDot = styled.span<{ $pulsing: boolean }>`
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: currentColor;
-  flex-shrink: 0;
-  ${({ $pulsing }) =>
-    $pulsing &&
-    css`
-      animation: ${pulse} 1.4s ease-in-out infinite;
-    `}
-`
 
 function statusLabel(status: Provider['status']) {
   if (status === 'notified') return 'Esperando aceptación...'
@@ -369,13 +93,21 @@ function ProviderItem({ provider }: { provider: Provider }) {
       <ProviderTop>
         <ProviderAvatar>{provider.initials}</ProviderAvatar>
         <ProviderInfo>
-          <ProviderName>{provider.name}</ProviderName>
-          <ProviderSpecialty>{provider.specialty}</ProviderSpecialty>
+          <Text variant="bodySmall" weight={600} color="primary" truncate>
+            {provider.name}
+          </Text>
+          <Text variant="hint" color="soft">
+            {provider.specialty}
+          </Text>
         </ProviderInfo>
       </ProviderTop>
       <BarHeader>
-        <span>Compatibilidad</span>
-        <span>{provider.matchScore}%</span>
+        <Text as="span" variant="hint" color="secondary">
+          Compatibilidad
+        </Text>
+        <Text as="span" variant="hint" color="secondary">
+          {provider.matchScore}%
+        </Text>
       </BarHeader>
       <BarTrack>
         <BarFill $width={provider.matchScore} />
@@ -387,22 +119,6 @@ function ProviderItem({ provider }: { provider: Provider }) {
     </ProviderCardBox>
   )
 }
-
-const ProvidersWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-`
-
-const Notice = styled.div`
-  padding: 8px 12px;
-  background: ${light.accentBg};
-  border: 1px solid ${light.accentBorder};
-  border-radius: 8px;
-  font-size: 11px;
-  color: ${light.accent};
-  line-height: 1.4;
-`
 
 export function RequestPanel() {
   const { activeRequest, requestId } = useChatStore()
@@ -419,19 +135,31 @@ export function RequestPanel() {
   return (
     <Panel>
       <Header>
-        <Title>Panel de solicitud</Title>
-        <Sub>{activeRequest ? 'solicitud en curso' : 'sin actividad activa'}</Sub>
+        <Text variant="bodySmall" weight={600} color="primary">
+          Panel de solicitud
+        </Text>
+        <Text variant="hint" color="soft">
+          {activeRequest ? 'solicitud en curso' : 'sin actividad activa'}
+        </Text>
       </Header>
 
       <Body>
         <StatRow>
           <StatCard>
-            <StatValue>{active}</StatValue>
-            <StatLabel>activas</StatLabel>
+            <Text variant="heading3" weight={700} color="primary">
+              {active}
+            </Text>
+            <Text variant="eyebrow" color="soft">
+              activas
+            </Text>
           </StatCard>
           <StatCard>
-            <StatValue>{completed}</StatValue>
-            <StatLabel>completadas</StatLabel>
+            <Text variant="heading3" weight={700} color="primary">
+              {completed}
+            </Text>
+            <Text variant="eyebrow" color="soft">
+              completadas
+            </Text>
           </StatCard>
         </StatRow>
 
@@ -440,7 +168,7 @@ export function RequestPanel() {
             <EmptyIcon>
               <ClipboardList size={20} />
             </EmptyIcon>
-            <EmptyText>
+            <EmptyText variant="caption" color="soft" align="center">
               Tu solicitud y los profesionales disponibles aparecerán aquí
             </EmptyText>
           </Empty>
@@ -463,14 +191,20 @@ export function RequestPanel() {
         )}
 
         <ActivityList>
-          <ActivityLabel>Acciones rápidas</ActivityLabel>
+          <ActivityLabel variant="eyebrow" color="soft">
+            Acciones rápidas
+          </ActivityLabel>
           <ActivityItem type="button">
             <ActivityIcon $bg={tint.blue.bg} $color={tint.blue.color}>
               <Calendar size={13} />
             </ActivityIcon>
             <ActivityText>
-              <ActivityTitle>Mis turnos</ActivityTitle>
-              <ActivitySub>Ver agenda completa</ActivitySub>
+              <Text variant="caption" weight={600} color="primary">
+                Mis turnos
+              </Text>
+              <Text variant="hint" color="soft">
+                Ver agenda completa
+              </Text>
             </ActivityText>
             <Arrow size={14} />
           </ActivityItem>
@@ -479,8 +213,12 @@ export function RequestPanel() {
               <FileText size={13} />
             </ActivityIcon>
             <ActivityText>
-              <ActivityTitle>Historial</ActivityTitle>
-              <ActivitySub>Servicios anteriores</ActivitySub>
+              <Text variant="caption" weight={600} color="primary">
+                Historial
+              </Text>
+              <Text variant="hint" color="soft">
+                Servicios anteriores
+              </Text>
             </ActivityText>
             <Arrow size={14} />
           </ActivityItem>
@@ -489,8 +227,12 @@ export function RequestPanel() {
               <Headphones size={13} />
             </ActivityIcon>
             <ActivityText>
-              <ActivityTitle>Soporte</ActivityTitle>
-              <ActivitySub>Contactar al equipo</ActivitySub>
+              <Text variant="caption" weight={600} color="primary">
+                Soporte
+              </Text>
+              <Text variant="hint" color="soft">
+                Contactar al equipo
+              </Text>
             </ActivityText>
             <Arrow size={14} />
           </ActivityItem>

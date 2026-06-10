@@ -16,12 +16,16 @@ export type TextColor =
   | 'primary'
   | 'secondary'
   | 'tertiary'
+  | 'soft'
+  | 'faint'
   | 'accent'
   | 'error'
   | 'success'
   | 'inherit'
 
 export type TextAs = 'p' | 'span' | 'h1' | 'h2' | 'h3' | 'h4' | 'label' | 'div'
+
+export type TextTransform = 'none' | 'uppercase' | 'capitalize'
 
 export interface TextProps {
   variant?: TextVariant
@@ -32,4 +36,8 @@ export interface TextProps {
   onClick?: () => void
   truncate?: boolean
   align?: 'left' | 'center' | 'right'
+  /** Sobrescribe el peso del `variant` (p. ej. 600 para un body en negrita). */
+  weight?: number
+  /** Sobrescribe el `text-transform` del `variant`. */
+  transform?: TextTransform
 }

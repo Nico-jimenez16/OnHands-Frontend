@@ -67,6 +67,8 @@ const colorMap: Record<Exclude<TextColor, 'inherit'>, string> = {
   primary: theme.colors.text.primary,
   secondary: theme.colors.text.secondary,
   tertiary: theme.colors.text.tertiary,
+  soft: theme.colors.text.soft,
+  faint: theme.colors.text.faint,
   accent: theme.colors.accent.purple,
   error: theme.colors.status.error,
   success: theme.colors.status.success,
@@ -78,6 +80,8 @@ interface StyledTextProps {
   $truncate?: boolean
   $align?: 'left' | 'center' | 'right'
   $clickable?: boolean
+  $weight?: number
+  $transform?: 'none' | 'uppercase' | 'capitalize'
 }
 
 const StyledText = styled.p<StyledTextProps>`
@@ -88,6 +92,12 @@ const StyledText = styled.p<StyledTextProps>`
   `}
   ${({ $color }) => $color === 'inherit' && css`
     color: inherit;
+  `}
+  ${({ $weight }) => $weight && css`
+    font-weight: ${$weight};
+  `}
+  ${({ $transform }) => $transform && css`
+    text-transform: ${$transform};
   `}
   ${({ $align }) => $align && css`
     text-align: ${$align};
@@ -112,6 +122,8 @@ export function Text({
   onClick,
   truncate,
   align,
+  weight,
+  transform,
 }: TextProps) {
   return (
     <StyledText
@@ -122,6 +134,8 @@ export function Text({
       $color={color}
       $truncate={truncate}
       $align={align}
+      $weight={weight}
+      $transform={transform}
       $clickable={!!onClick}
     >
       {children}

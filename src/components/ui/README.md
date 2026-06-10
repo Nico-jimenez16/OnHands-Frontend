@@ -44,6 +44,59 @@ Hereda todos los atributos nativos de `<button>` (`onClick`, `type`, `disabled`,
 
 ---
 
+## IconButton
+
+Botón **cuadrado solo-ícono** (sin texto). El ícono se pasa como children.
+
+```tsx
+import { IconButton } from '@/components/ui'
+import { ArrowUp, Paperclip } from 'lucide-react'
+
+<IconButton variant="primary" aria-label="Enviar" onClick={send}>
+  <ArrowUp size={15} />
+</IconButton>
+<IconButton variant="ghost" size="sm" aria-label="Adjuntar">
+  <Paperclip size={14} />
+</IconButton>
+```
+
+| Prop | Tipo | Default |
+| --- | --- | --- |
+| `variant` | `'primary' \| 'ghost'` | `'primary'` |
+| `size` | `'sm' \| 'md'` (26 / 32px) | `'md'` |
+| `aria-label` | `string` (**obligatorio**, es solo-ícono) | — |
+
+Hereda todos los atributos nativos de `<button>` (`onClick`, `disabled`, …).
+
+---
+
+## TextArea
+
+Textarea que **auto-crece** con su contenido entre `minHeight` y `maxHeight`. Es
+controlado: el alto se recalcula con `value`, así que al vaciarlo vuelve solo a `minHeight`.
+
+```tsx
+import { TextArea } from '@/components/ui'
+
+<TextArea
+  value={value}
+  onChange={(e) => setValue(e.target.value)}
+  onKeyDown={handleKeyDown}
+  placeholder="Escribí acá…"
+  maxHeight={140}
+/>
+```
+
+| Prop | Tipo | Default |
+| --- | --- | --- |
+| `value` | `string` (**obligatorio**, controlado) | — |
+| `minHeight` | `number` (alto de reposo, px) | `20` |
+| `maxHeight` | `number` (px antes de scroll interno) | `140` |
+
+Hereda los atributos nativos de `<textarea>` (`onChange`, `onKeyDown`, `placeholder`, `disabled`, …).
+
+---
+
 ## Input
 
 ```tsx
@@ -84,11 +137,17 @@ import { Text } from '@/components/ui'
 | Prop | Tipo | Default |
 | --- | --- | --- |
 | `variant` | `heading1..4 \| body \| bodySmall \| caption \| eyebrow \| error \| hint` | `'body'` |
-| `color` | `primary \| secondary \| tertiary \| accent \| error \| success \| inherit` | — |
+| `color` | `primary \| secondary \| tertiary \| soft \| faint \| accent \| error \| success \| inherit` | — |
 | `as` | `p \| span \| h1..h4 \| label \| div` | `'p'` |
+| `weight` | `number` (sobrescribe el peso del `variant`, ej. `600`) | — |
+| `transform` | `'none' \| 'uppercase' \| 'capitalize'` | — |
 | `truncate` | `boolean` | `false` |
 | `align` | `'left' \| 'center' \| 'right'` | — |
 | `onClick` | `() => void` | — |
+
+> `soft` (`#9090a8`) y `faint` (`#c0c0d0`) son los grises atenuados de la UI principal.
+> Usá `weight`/`transform` para casos como un `body` en negrita o un valor capitalizado
+> sin crear un `variant` nuevo.
 
 ---
 
